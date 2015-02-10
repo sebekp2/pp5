@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
 
-
+$conn->set_charset("utf8");
 ?>
 <ul class="sep-hr resultsList">
 <?php
@@ -75,9 +75,11 @@ while($row = $result->fetch_assoc()) {
           <div class=
           "well boxContainer va-middle rateInfo hasRate">
             <div class="box">
-              <span class="rateBox"><i class=
-              "icon-small-voteOn"></i>
-              <strong>8,7<span class="ten">/10</span></strong>&nbsp;</span>
+              <span class="rateBox">
+
+              Cena filmu
+              <strong><?=$row['price']?> $
+              </strong>&nbsp;</span>
 
               <div class="breaker hide">
               </div>
@@ -108,32 +110,47 @@ while($row = $result->fetch_assoc()) {
 
 
             <dd>
+
               <ul class="inline sep-comma">
+              <?php 
+              // pobieranie aktorów
+              // Wybiera takie rekody z tabeli łączącej aby wybrać aktorów którzy grali w tym filmie, 
+              // w raize braku wyniku zwróci "Brak danych"
+              $sql2 = "SELECT * FROM `movies_actors` "
+              ."INNER JOIN `actors` ON `actors`.`id`=`movies_actors`.`actor_id` "
+              ."WHERE `movies_actors`.`movie_id`='".$row['id']."';";
+              // wysylanie zapytania
+              
+              $actors = $conn->query($sql2);
+
+
+              //pobieranie wynikow do zmiennej
+              if (mysqli_num_rows($actors) == 0)
+                echo "<li>Brak danych o aktorach</li>";
+              while($rowA = $actors->fetch_assoc()) {
+              ?>
                 <li>
-                  <a href="#">Tom Hanks</a>
+                  <a href="#"><?=$rowA['name']?></a>
                 </li>
 
 
-                <li>
-                  <a href="/person/David+Morse-3454"
-                  target="_blank" title="David Morse">David
-                  Morse</a>
-                </li>
+         
+                <?php 
+              }
+              ?>
               </ul>
             </dd>
           </dl>
 
 
           <div class="filmPlot">
+          <p>
           <?php 
 
           // opis filmu
-
+          echo $row['info'];
           ?>
-            <p>Emerytowany strażnik więzienny opowiada
-            przyjaciółce o niezwykłym mężczyźnie, którego
-            skazano na śmierć za zabójstwo dwóch 9-letnich
-            dziewczynek.</p>
+            </p>
           </div>
 
 
