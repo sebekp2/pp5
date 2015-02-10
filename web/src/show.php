@@ -11,7 +11,7 @@ $conn = new mysqli($servername, $username, $password, 'test2');
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 } 
-
+// Żeby wyświetlał polskie znaki
 $conn->set_charset("utf8");
 ?>
 <ul class="sep-hr resultsList">
@@ -28,7 +28,7 @@ while($row = $result->fetch_assoc()) {
 
 ?>
   <li>
-    <div class="filmPreview isFilm" id="previewFilmId-862">
+    <div class="filmPreview isFilm">
 
     <!-- Zdjęcie -->
       <div class="filmPoster-2">
@@ -87,13 +87,14 @@ while($row = $result->fetch_assoc()) {
 
 
             <div class="box">
-              <i class="icon-small-eye"></i>
-
-               60 388
-
+              FILM KUPIŁO:
+              <?php 
+               $orders = $conn->query("SELECT * FROM `orders` WHERE `movie_id`='".$row['id']."';");
+               echo mysqli_num_rows($orders);
+              ?>
               <div class="breaker hide">
               </div>
-              ZAKUPIŁO
+              OSÓB
             </div>
 
 
