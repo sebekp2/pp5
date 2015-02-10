@@ -1,4 +1,32 @@
+<?php
+// Dane do bazy danych
+$servername = "localhost";
+$username = "sklep";
+$password = "sklep";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, 'test2');
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+
+
+?>
 <ul class="sep-hr resultsList">
+<?php
+
+// pobieranie wynikow o filmach
+$sql = "SELECT * FROM movies";
+// wysylanie zapytania
+$result = $conn->query($sql);
+
+//pobieranie wynikow do zmiennej
+while($row = $result->fetch_assoc()) {
+
+
+?>
   <li>
     <div class="filmPreview isFilm" id="previewFilmId-862">
 
@@ -16,19 +44,23 @@
 
       <div class="filmContent">
         <h3 class="hdr hdr-big entityTitle">
-          Zielona mila
-        <span class="titleYear">
-
-          (1999)
-
-        </span>
+          <?php
+          echo $row['title'];
+                    ?>
+        
         </h3>
-        <span class="filmTime">
-        3 godz. 8 min.
-        </span><br>
+        <span class="titleYear">
+        Rok produkcji:
+          <?php
+            // wyswietlamy rok
+            echo $row["year"];
+          ?>
+
+        </span><br/>
 
 
         <ul class="inline sep-line prevInfo">
+        <!-- lista gatunkow, jeszcze nie zaimplementowana -->
           <li class="filmGenres">
             <ul class="inline sep-comma">
               <li>Dramat</li>
@@ -110,4 +142,8 @@
       </div>
     </div>
   </li>
+<?php 
+// koniec pętli while
+}
+?>
 </ul>
