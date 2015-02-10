@@ -4,38 +4,39 @@
 
     <!-- Zdjęcie -->
       <div class="filmPoster-2">
-        <a class="fImg2 entityPoster" href="#"><img src="http://placehold.it/140x180"></a>
+        <a class="fImg2 entityPoster" href="#">
+
+        <?php 
+        // link do obrazka ?>
+        <img src="http://placehold.it/140x180/">
+
+        </a>
       </div>
 
 
       <div class="filmContent">
-        <h3 class="hdr hdr-big entityTitle"><a class=
-        "filmTitle gwt-filmPage" href=
-        "/Zielona.Mila">Zielona mila</a> <span class=
-        "titleYear">(1999)</span></h3>
-        <span class="filmTime">3 godz. 8 min.</span><br>
+        <h3 class="hdr hdr-big entityTitle">
+          Zielona mila
+        <span class="titleYear">
+
+          (1999)
+
+        </span>
+        </h3>
+        <span class="filmTime">
+        3 godz. 8 min.
+        </span><br>
 
 
         <ul class="inline sep-line prevInfo">
           <li class="filmGenres">
             <ul class="inline sep-comma">
-              <li>
-                <a href=
-                "/search/film?genreIds=6">Dramat</a>
-              </li>
+              <li>Dramat</li>
+              <li>Akcja</li>
+              <li>Komedia</li>
             </ul>
           </li>
 
-
-          <li class="filmCountries">
-            <ul class="inline sep-comma">
-              <li>
-                <a href=
-                "/search/film?countryIds=53">USA</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
 
 
         <div class="relative prevInfo2">
@@ -44,8 +45,7 @@
             <div class="box">
               <span class="rateBox"><i class=
               "icon-small-voteOn"></i>
-              <strong>8,7<span class=
-              "ten">/10</span></strong>&nbsp;</span>
+              <strong>8,7<span class="ten">/10</span></strong>&nbsp;</span>
 
               <div class="breaker hide">
               </div>
@@ -53,7 +53,9 @@
 
 
             <div class="box">
-              <i class="icon-small-eye"></i> 60 388
+              <i class="icon-small-eye"></i>
+
+               60 388
 
               <div class="breaker hide">
               </div>
@@ -62,9 +64,9 @@
 
 
             <div class="box">
-              <a class=
-              "fbtn fbtn-primary pull-right trailerLink nowrap"
-              href="#">KUP FILM</a>
+              <a class="fbtn fbtn-primary pull-right trailerLink nowrap"
+              href="#">
+              KUP FILM</a>
             </div>
           </div>
 
@@ -91,11 +93,19 @@
 
 
           <div class="filmPlot">
+          <?php 
+
+          // opis filmu
+
+          ?>
             <p>Emerytowany strażnik więzienny opowiada
             przyjaciółce o niezwykłym mężczyźnie, którego
             skazano na śmierć za zabójstwo dwóch 9-letnich
             dziewczynek.</p>
           </div>
+
+
+
         </div>
       </div>
     </div>
