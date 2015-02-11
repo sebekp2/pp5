@@ -1,18 +1,5 @@
 <?php
-// Dane do bazy danych
-$servername = "localhost";
-$username = "sklep";
-$password = "sklep";
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, 'test2');
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-} 
-// Żeby wyświetlał polskie znaki
-$conn->set_charset("utf8");
 ?>
 <ul class="sep-hr resultsList">
 <?php
@@ -111,7 +98,7 @@ while($row = $result->fetch_assoc()) {
 
 
             <div class="box">
-            <form style="display:none;" action="src/orders.php" method="post" id="<?=$row['id']?>">
+            <form style="display:none;" action="index.php?page=orders" method="post" id="<?=$row['id']?>">
               <input type="hidden" name="movie_id" value="<?=$row['id']?>">
               <div><label for="movie_info">Podaj adres, na który mamy wysłać Ci film (płatność przy odbiorze):</label>
               <textarea name="movie_info" style="margin: 0px; height: 100px; width: 300px;">

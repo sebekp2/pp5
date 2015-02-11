@@ -1,3 +1,22 @@
+<?php
+
+// Dane do bazy danych
+$servername = "localhost";
+$username = "sklep";
+$password = "sklep";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, 'test2');
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+} 
+// Żeby wyświetlał polskie znaki
+$conn->set_charset("utf8");
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
