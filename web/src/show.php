@@ -17,10 +17,21 @@ $conn->set_charset("utf8");
 <ul class="sep-hr resultsList">
 <?php
 
-// pobieranie wynikow o filmach
-$sql = "SELECT * FROM movies";
+// pobieranie wynikow o filmach + ile kto ich razy kupił (o poprawnośc zapytania doradziliśmy sie kolegi + wujek google)
+$sql = "SELECT `movies`.*, count(O.`movie_id`) AS Zakupow FROM `movies` LEFT JOIN `orders` AS O ON `movies`.`id` = O.`movie_id` GROUP BY `movies`.`id`";
+/* Ewentualnie bardziej skomplikowane zapytanie, (aktorów mamy wtedy w jednej kolumnie, ale cięzej jest na nich operowac w php)
+SELECT `movies`.*, GROUP_CONCAT(A.`name`) AS Aktorzy, COUNT(`orders`.`id`) AS Zakupow FROM `movies` 
+LEFT JOIN `orders` ON `orders`.`movie_id` = `movies`.`id` 
+LEFT JOIN `movies_actors` ON `movies_actors`.`movie_id` = `movies`.`id`
+LEFT JOIN `actors` AS A ON `movies_actors`.`actor_id` = A.`id`
+GROUP BY `movies`.`id`
+*/
+
+
+
 // wysylanie zapytania
 $result = $conn->query($sql);
+
 
 //pobieranie wynikow do zmiennej
 while($row = $result->fetch_assoc()) {
@@ -89,8 +100,9 @@ while($row = $result->fetch_assoc()) {
             <div class="box">
               FILM KUPIŁO:
               <?php 
-               $orders = $conn->query("SELECT * FROM `orders` WHERE `movie_id`='".$row['id']."';");
-               echo mysqli_num_rows($orders);
+               //$orders = $conn->query("SELECT * FROM `orders` WHERE `movie_id`='".$row['id']."';");
+               //echo mysqli_num_rows($orders);
+              echo $row['Zakupow'];
               ?>
               <div class="breaker hide">
               </div>
@@ -99,7 +111,7 @@ while($row = $result->fetch_assoc()) {
 
 
             <div class="box">
-            <form style="display:none;" action="src/buy.php" method="post" id="<?=$row['id']?>">
+            <form style="display:none;" action="src/orders.php" method="post" id="<?=$row['id']?>">
               <input type="hidden" name="movie_id" value="<?=$row['id']?>">
               <div><label for="movie_info">Podaj adres, na który mamy wysłać Ci film (płatność przy odbiorze):</label>
               <textarea name="movie_info" style="margin: 0px; height: 100px; width: 300px;">
@@ -135,9 +147,12 @@ ul.Słoneczna 3/7
               $actors = $conn->query($sql2);
 
 
-              //pobieranie wynikow do zmiennej
+              // Jeśli nie znalazło żadnego rekodu
               if (mysqli_num_rows($actors) == 0)
                 echo "<li>Brak danych o aktorach</li>";
+
+              //pobieranie wynikow do zmiennej 
+              
               while($rowA = $actors->fetch_assoc()) {
               ?>
                 <li>

@@ -56,8 +56,13 @@ include 'src/menu.html'
 <?php 
 
 // POKAZ REKORDY
+// Zależnie od tego co jest wysłane w głownym zapytaniu
 
-include 'src/show.php';
+$page = $_GET['page'];
+//gdyby w linku nie było zmiennej to ustawia domyślną
+if (!$page)
+	$page = 'show';
+include 'src/'.$page.'.php';
 ?>
 
 <!-- KOD -->
