@@ -10,7 +10,7 @@ if (!empty($_POST['client_info']) and !empty($_POST['movie_id']))
 }
 
 ?>
-<ul class="sep-hr resultsList">
+<ul class="sep-hr resultsList well concave">
 <?php
 
 // pobieranie wynikow o filmach + ile kto ich razy kupił (o poprawnośc zapytania doradziliśmy sie kolegi + wujek google)
@@ -43,7 +43,7 @@ while($row = $result->fetch_assoc()) {
 
       <div class="filmContent">
       <h3 class="hdr hdr-big ">
-      Zakup z dnia
+      Zakup z dnia <?=$row['data']?>
       </h3>
         <h4 class="hdr hdr-big ">
           <?php

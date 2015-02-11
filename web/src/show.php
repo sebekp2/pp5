@@ -71,7 +71,7 @@ $result = $conn->query($sql);
     </div>
   </div>
 </div>
-<ul class="sep-hr resultsList">
+<ul class="sep-hr resultsList well concave">
 <?php
 
 
