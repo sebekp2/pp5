@@ -99,9 +99,19 @@ while($row = $result->fetch_assoc()) {
 
 
             <div class="box">
-              <a class="fbtn fbtn-primary pull-right trailerLink nowrap"
-              href="#">
-              KUP FILM</a>
+            <form style="display:none;" action="src/buy.php" method="post" id="<?=$row['id']?>">
+              <input type="hidden" name="movie_id" value="<?=$row['id']?>">
+              <div><label for="movie_info">Podaj adres, na który mamy wysłać Ci film (płatność przy odbiorze):</label>
+              <textarea name="movie_info" style="margin: 0px; height: 100px; width: 300px;">
+Justyna Kowalska
+ul.Słoneczna 3/7
+00-000 Warszawa</textarea>
+              </div>
+              <button class="fbtn fbtn-primary pull-right trailerLink nowrap" type="submit">
+              POTWIERDŹ ZAKUP</button>
+            </form>
+              <button class="fbtn fbtn-primary pull-right trailerLink nowrap" onclick="showForm(<?=$row['id']?>, this)">
+              ZAKUP</button>
             </div>
           </div>
 
@@ -165,3 +175,24 @@ while($row = $result->fetch_assoc()) {
 }
 ?>
 </ul>
+
+<script>
+
+// Skrypt wyswietla forme z potwierdzeniem zakupu
+function showForm (id, button) {
+  // Gdy forma nie jest jeszcze wyswietlona
+  if (document.getElementById(id).getAttribute('style') == 'display:none;')
+  {
+    // Zmien atrybuty i ją wyświetl
+  document.getElementById(id).setAttribute('style', '');
+  button.innerHTML = "ANULUJ";   
+} else 
+{
+  // gdy forma jest juz wyswietlona to schowa ją
+  document.getElementById(id).setAttribute('style', 'display:none;');
+  button.innerHTML = "ZAKUP";  
+}
+
+
+}
+</script>
