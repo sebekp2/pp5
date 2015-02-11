@@ -1,4 +1,13 @@
 <?php
+// jeśli zostały przesłana do tej strony forma z nowym zamówienim, doda to do bazy
+
+if (!empty($_POST['client_info']) and !empty($_POST['movie_id']))
+{
+  $SQL = "INSERT INTO `orders` (`client_info`, `movie_id`) VALUES ('".$_POST['client_info']."', '".$_POST['movie_id']."')";
+
+  //wyslij zapytanie
+  $conn->query($SQL);
+}
 
 ?>
 <ul class="sep-hr resultsList">

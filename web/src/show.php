@@ -1,11 +1,27 @@
+
+
+
+
+
 <?php
 
 ?>
-<ul class="sep-hr resultsList">
 <?php
+// pobieranie sortowania
+$sort = $_GET['sort'];
+if ($sort)
+  $sort = ' ORDER BY `'.$sort.'`'; else
+ $sort = ' ORDER BY `title`';
+
+
+$sortAscending = $_GET['sortAscending'];
+
+if ($sortAscending == "true")
+  $sort = $sort." ASC"; else
+  $sort = $sort." DESC";
 
 // pobieranie wynikow o filmach + ile kto ich razy kupił (o poprawnośc zapytania doradziliśmy sie kolegi + wujek google)
-$sql = "SELECT `movies`.*, count(O.`movie_id`) AS Zakupow FROM `movies` LEFT JOIN `orders` AS O ON `movies`.`id` = O.`movie_id` GROUP BY `movies`.`id`";
+$sql = "SELECT `movies`.*, count(O.`movie_id`) AS Zakupow FROM `movies` LEFT JOIN `orders` AS O ON `movies`.`id` = O.`movie_id` GROUP BY `movies`.`id`".$sort;
 /* Ewentualnie bardziej skomplikowane zapytanie, (aktorów mamy wtedy w jednej kolumnie, ale cięzej jest na nich operowac w php)
 SELECT `movies`.*, GROUP_CONCAT(A.`name`) AS Aktorzy, COUNT(`orders`.`id`) AS Zakupow FROM `movies` 
 LEFT JOIN `orders` ON `orders`.`movie_id` = `movies`.`id` 
@@ -15,9 +31,51 @@ GROUP BY `movies`.`id`
 */
 
 
-
 // wysylanie zapytania
 $result = $conn->query($sql);
+?>
+
+<div class="pageBox well filterBox concave">
+  <div id="searchFilters" style="visibility: visible;">
+   <div class="pageBox">
+      <div class="searchResultInfo boxContainer">
+        <div class="box" id="resultsCount">
+          <strong>Wyniki:</strong> 
+
+
+          <?php 
+          // wyswietlanie ile wynikow znaleziono
+          echo "Znaleziono ".mysqli_num_rows($result)." filmów w bazie";
+
+          ?>
+        </div>
+
+        <form action="index.php"> 
+        <div class="box" id="sortBar">
+          <label class="first" for=
+          "search_sortBy"><strong>sortuj</strong> według:</label>
+          <select class="s" name="sort" onchange="this.form.submit()">
+          <option value="">---</option>
+          <option value="title">Alfabetycznie</option>
+          <option value="Zakupow">Ilości zakupów</option>
+          <option value="year">Dacie produkcji</option>
+          </select> &nbsp; 
+          <label for="search_sort_desc">od największej</label> &nbsp; 
+          
+          <input checked="checked" name="sortAscending" type="radio" value="false"> 
+          <label for="search_sort_desc">od najmniejszej</label> &nbsp; 
+          <input name="sortAscending" type="radio" value="true">
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<ul class="sep-hr resultsList">
+<?php
+
+
+
 
 
 //pobieranie wynikow do zmiennej
@@ -100,8 +158,8 @@ while($row = $result->fetch_assoc()) {
             <div class="box">
             <form style="display:none;" action="index.php?page=orders" method="post" id="<?=$row['id']?>">
               <input type="hidden" name="movie_id" value="<?=$row['id']?>">
-              <div><label for="movie_info">Podaj adres, na który mamy wysłać Ci film (płatność przy odbiorze):</label>
-              <textarea name="movie_info" style="margin: 0px; height: 100px; width: 300px;">
+              <div><label for="client_info">Podaj adres, na który mamy wysłać Ci film (płatność przy odbiorze):</label>
+              <textarea name="client_info" style="margin: 0px; height: 100px; width: 300px;">
 Justyna Kowalska
 ul.Słoneczna 3/7
 00-000 Warszawa</textarea>

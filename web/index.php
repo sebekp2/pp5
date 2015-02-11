@@ -39,38 +39,6 @@ $conn->set_charset("utf8");
 include 'src/menu.html' 
 ?>
 
-<div class="pageBox well filterBox concave">
-  <div id="searchFilters" style="visibility: visible;">
-    <input>
-  </div>
-</div>
-
-
-<div class="pageBox">
-  <div class="searchResultInfo boxContainer">
-    <div class="box" id="resultsCount">
-      <strong>Wyniki:</strong> 
-
-
-      <?php 
-      // INFORMACJE ILE WYNIKOW JEST ZNALEZIONYCH
-
-      ?>
-    </div>
-
-
-    <div class="box" id="sortBar">
-      <label class="first" for=
-      "search_sortBy"><strong>sortuj</strong> według:</label>
-      <select class="s" name="sort">
-      </select> &nbsp; 
-      <input checked="checked" name="sortAscending" type="radio"
-        value="false"> 
-      <label for="search_sort_desc">od największej</label> &nbsp; 
-      <input name="sortAscending" type="radio" value="true">
-    </div>
-  </div>
-</div>
 
 <?php 
 
