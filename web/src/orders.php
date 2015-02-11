@@ -8,8 +8,6 @@
 $sql = "SELECT * FROM `orders` INNER JOIN `movies` ON `movies`.`id` = `orders`.`movie_id` GROUP BY `orders`.`id`";
 
 
-
-
 // wysylanie zapytania
 $result = $conn->query($sql);
 
@@ -65,8 +63,6 @@ while($row = $result->fetch_assoc()) {
             <div style="display:block">
           <strong>Adres dostawy:</strong> <br/>
               <?php 
-               //$orders = $conn->query("SELECT * FROM `orders` WHERE `movie_id`='".$row['id']."';");
-               //echo mysqli_num_rows($orders);
               echo $row['client_info'];
               ?>
 
@@ -95,24 +91,3 @@ while($row = $result->fetch_assoc()) {
 }
 ?>
 </ul>
-
-<script>
-
-// Skrypt wyswietla forme z potwierdzeniem zakupu
-function showForm (id, button) {
-  // Gdy forma nie jest jeszcze wyswietlona
-  if (document.getElementById(id).getAttribute('style') == 'display:none;')
-  {
-    // Zmien atrybuty i ją wyświetl
-  document.getElementById(id).setAttribute('style', '');
-  button.innerHTML = "ANULUJ";   
-} else 
-{
-  // gdy forma jest juz wyswietlona to schowa ją
-  document.getElementById(id).setAttribute('style', 'display:none;');
-  button.innerHTML = "ZAKUP";  
-}
-
-
-}
-</script>

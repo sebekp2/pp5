@@ -92,5 +92,17 @@ include 'src/'.$page.'.php';
 </div>
 </div>
 </div>
+
+<script type="text/javascript">
+	
+	// Zaznaczanie aktywnego menu
+	var li = document.getElementById('navbar').getElementsByTagName('li');
+
+	for (var i = 0; i<li.length; i++) {
+		if (li[i].innerHTML.indexOf('<?=$page?>') >0)
+			li[i].setAttribute('class', 'active');
+	};
+</script>
+
 </body>
 </html>
